@@ -1,1 +1,1 @@
-CREATE TABLE todo_list(id SERIAL PRIMARY KEY, text VARCHAR(200), category VARCHAR(100), archived BOOLEAN DEFAULT FALSE, account_id INTEGER REFERENCES users (id));
+CREATE TABLE todo_lists(id SERIAL PRIMARY KEY, text VARCHAR(200), category VARCHAR(100), archived BOOLEAN DEFAULT FALSE, account_id INTEGER REFERENCES users (id));

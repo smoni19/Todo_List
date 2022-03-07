@@ -1,5 +1,5 @@
-require_relative "./app"
+require_relative './app'
 
 use Rack::MethodOverride
 
-run Todo_List
+run TodoList

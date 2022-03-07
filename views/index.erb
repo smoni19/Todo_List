@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    <% if !@username %>
+      <a href='/signup'>Sign up</a>
+    <% else %>
+      <h3>Hello <%= "#{@username}" %></h3>
+    <% end %>
+  </body>
+</html>
