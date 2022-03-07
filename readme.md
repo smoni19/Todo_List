@@ -45,6 +45,22 @@ I want to be able to archive old lists
 So that my page is not cluttered
 ```
 
+# Set up
+1. Clone this Repo
+2. Run `bundle install` to install necessary gems
+3. Creating the development database:
+    1. Launch postgres in your terminal with `psql`
+    2. Run `CREATE DATABASE todo_list;`
+    3. Run `\c todo_list;` to connect to the database
+    4. Run the query in `01_create_users_table.sql`
+    5. Run the query in `02_create_todo_list_table.sql`
+    6. Run the query in `03_create_task_table.sql`
+4. To create the test database, repeat step 3, but for 3.2 run`CREATE DATABASE todo_list_test;`
+
+# Running the app
+1. Enter `rackup` in the terminal
+2. Visit `localhost:9292` in your browser
+
 # Planning
 
 ## Trello and tables
