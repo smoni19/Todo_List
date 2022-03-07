@@ -1,6 +1,23 @@
 {
   "RSpec": {
     "coverage": {
+      "/Users/simonjacobs/Programming/Todo_List/spec/feature_tests/logging_in_spec.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null
+        ]
+      },
       "/Users/simonjacobs/Programming/Todo_List/spec/feature_tests/signing_up_spec.rb": {
         "lines": [
           1,
@@ -31,10 +48,19 @@
           1,
           null,
           null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
           null
         ]
       }
     },
-    "timestamp": 1646668113
+    "timestamp": 1646669305
   }
 }

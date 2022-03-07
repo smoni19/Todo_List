@@ -25,5 +25,22 @@ class TodoList < Sinatra::Base
     redirect '/'
   end
 
+  get '/login' do
+    erb :'user/login'
+  end
+
+  post '/login' do
+    @user = User.login(username: params[:username], password: params[:password])
+    session[:username] = @user.username
+    session[:email] = @user.email
+    session[:id] = @user.id
+    redirect '/'
+  end
+
+  get '/logout' do
+    session.clear
+    redirect '/'
+  end
+
   run! if app_file == $0
 end

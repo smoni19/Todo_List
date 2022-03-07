@@ -5,9 +5,11 @@
   </head>
   <body>
     <% if !@username %>
-      <a href='/signup'>Sign up</a>
+      <a href='/signup'>Sign up</a><br/>
+      <a href='/login'>Log in</a>
     <% else %>
-      <h3>Hello <%= "#{@username}" %></h3>
+      <p>Hello <%= "#{@username}" %></p>
+      <a href='/logout'>Logout</a>
     <% end %>
   </body>
 </html>
