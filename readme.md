@@ -45,10 +45,23 @@ I want to be able to archive old lists
 So that my page is not cluttered
 ```
 
-## Planning
+# Planning
 
+## Trello and tables
 - [Trello board](https://trello.com/b/hUZHG7OY/todo-list)
 - [Tables](https://docs.google.com/spreadsheets/d/1alQawtbhP6UB3flHBr7vVS9H5snEYJQE-vKwF-dI-1s/edit#gid=0)
 
-# Wireframes
+## Wireframes
+![image](Wireframes/signup.png)
 
+![image](Wireframes/login.png)
+
+![image](Wireframes/add_list.png)
+
+![image](Wireframes/add_task.png)
+
+![image](Wireframes/edit_task.png)
+
+![image](Wireframes/my_lists.png)
+
+![image](Wireframes/archived_lists.png)
