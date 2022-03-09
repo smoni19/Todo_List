@@ -21,6 +21,12 @@ class Task
     SET completed = FALSE
     WHERE id = $1
     RETURNING id, details, deadline, completed, todo_list_id;'
+  @edit_task = '
+    UPDATE tasks
+    SET details = $1, deadline = $2
+    WHERE id = $3
+    RETURNING id, details, deadline, completed, todo_list_id;'
+  @get_info = "SELECT * FROM tasks WHERE id = $1;"
 
   def initialize(id:, details:, deadline:, completed:, todo_list_id:)
     @id = id
@@ -56,10 +62,33 @@ class Task
         todo_list_id: task['todo_list_id'])
     end
   end
+  
+  def self.edit(id:, details:, deadline:)
+    ENV["ENVIRONMENT"] == "test" ? connection = @test_db : connection = @live_db
+    result = connection.exec_params(@edit_task, [details, deadline, id])
+    Task.new(
+      id: result[0]['id'],
+      details: result[0]['details'],
+      deadline: result[0]['deadline'],
+      completed: result[0]['completed'],
+      todo_list_id: result[0]['todo_list_id'])
+  end
 
   def self.set_status(id:, completed:)
     ENV['ENVIRONMENT'] == 'test' ? connection = @test_db : connection = @live_db
     completed == 'f' ? result = connection.exec_params(@task_complete, [id]) : result = connection.exec_params(@task_ongoing, [id])
+    Task.new(
+      id: result[0]['id'],
+      details: result[0]['details'],
+      deadline: result[0]['deadline'],
+      completed: result[0]['completed'],
+      todo_list_id: result[0]['todo_list_id'])
+  end
+  
+  def self.find(id:)
+    return nil unless id
+    ENV["ENVIRONMENT"] == "test" ? connection = @test_db : connection = @live_db
+    result = connection.exec_params(@get_info, [id])
     Task.new(
       id: result[0]['id'],
       details: result[0]['details'],

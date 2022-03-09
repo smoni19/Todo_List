@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit task</title>
+  </head>
+  <body>
+
+    <h1>Edit task</h1>
+    <form action='/task/<%= @task.id %>/update' method='post'>
+      <input id='hidden' type='hidden' name='_method' value='patch'>
+      <input type='text' name='edited_details' id='edited_details' value="<%= @task.details %>" required>
+      <input type='text' name='edited_deadline' id='edited_deadline' value="<%= @task.deadline %>" onfocus="(this.type='date')"><br>
+      <input type='submit' value='Update Task' id='edit_details'>
+    </form>
+
+    </div>
+  </body>
+</html>

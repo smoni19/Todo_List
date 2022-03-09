@@ -4,7 +4,7 @@ require './lib/list'
 require './lib/task'
 
 class TodoList < Sinatra::Base
-  enable :sessions
+  enable :sessions, :method_override
 
   get '/' do
     @username = session[:username]
@@ -74,6 +74,16 @@ class TodoList < Sinatra::Base
 
   post '/task/:id/:status' do
     Task.set_status(id: params[:id], completed: params[:status])
+    redirect '/my_todo_lists'
+  end
+
+  get "/task/:id/edit" do
+    @task = Task.find(id: params[:id])
+    erb :"task/edit"
+  end
+
+  patch "/task/:id/update" do
+    Task.edit(id: params[:id], details: params[:edited_details], deadline: params[:edited_deadline])
     redirect '/my_todo_lists'
   end
 

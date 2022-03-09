@@ -20,6 +20,10 @@
                   <%= task.details %>
                   <%= task.deadline[0..9] > Date.today.to_s ? "Deadline: #{task.deadline[0..9]}" : '' %>
 
+                  <form action="/task/<%= task.id %>/edit" method="get">
+                    <input type="submit" value="Edit Task" id="edit_task">
+                  </form>
+
                   <form action="/task/<%= task.id %>/<%= task.completed == 't' ? 't' : 'f' %>" method="post">
                     <input type="checkbox" id="checkbox<%= task.id %>" name="task<%= task.id %>" value="<%= task.completed == 't' ? 't' : 'f' %>" <%='checked' if task.completed == 't' %> onChange="this.form.submit()">
                   </form>

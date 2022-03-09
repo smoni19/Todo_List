@@ -43,5 +43,16 @@ describe Task do
       expect(completed_task.completed).to eq 't'
     end
   end
+  
+  describe "#edit" do
+    it "edits the details of a task" do
+      user = User.create(username: 'sj19', email: 'sj19test.com', password: '1234')
+      todo_list = List.create(name: 'House jobs', category: 'DIY', created: Time.new, archived: 'False', account_id: user.id)
+      task = Task.create(details: 'Put up shelves', deadline: future_time, completed: 'False', todo_list_id: todo_list.id)
+      edited_task = Task.edit(id: task.id, details: 'Paint bureau', deadline: future_time)
+      expect(edited_task.details).to eq 'Paint bureau'
+      expect(edited_task.deadline).to eq '2022-04-09 13:00:00+00'
+    end
+  end
 
 end
