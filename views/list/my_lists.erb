@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My todo lists</title>
+  </head>
+  <body>
+    <a href='/new_todo_list'>New todo list</a>
+    <a href='/logout'>Logout</a>
+
+    <h1>My todo lists</h1>
+    <ul id="peep_list">
+      <% @my_lists.reverse_each do |list| %>
+        <li id="<%= list.id %>">
+          <%= list.name %>
+          <%= list.category != '' ? list.category : '' %>
+        </li>
+      <% end %>
+    </ul>
+
+    </div>
+  </body>
+</html>
