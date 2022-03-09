@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require './lib/user'
 require './lib/list'
+require './lib/task'
 
 class TodoList < Sinatra::Base
   enable :sessions
@@ -54,12 +55,22 @@ class TodoList < Sinatra::Base
       created: Time.new,
       archived: "False",
       account_id: session[:id])
-    redirect '/'
+    redirect '/my_todo_lists'
   end
 
   get '/my_todo_lists' do
     @my_lists = List.all
+    @my_tasks = Task.all
     erb :"list/my_lists"
+  end
+
+  post '/new_task' do
+    Task.create(
+      details: params[:details],
+      deadline: params[:deadline],
+      completed: "False",
+      todo_list_id: params[:list_id])
+    redirect '/my_todo_lists'
   end
 
   run! if app_file == $0

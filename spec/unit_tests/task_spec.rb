@@ -1,0 +1,36 @@
+require 'timecop'
+
+describe Task do
+  before do Timecop.freeze(Time.local(2022, 3, 9, 13, 0, 0)) end
+  after do Timecop.return end
+
+  future = Time.local(2022, 4, 9, 13, 0, 0)
+
+  describe "#create" do
+  it "creates a new list which takes name, category and id of poster" do
+    @user = User.create(username: 'sj19', email: 'sj19@test.com', password: '1234')
+    @todo_list = List.create(name: 'House jobs', category: 'DIY', created: Time.new, archived: 'False', account_id: @user.id)
+    @task1 = Task.create(details: 'Put up shelves', deadline: future, completed: 'False', todo_list_id: @todo_list.id)
+    @task2 = Task.create(details: 'Paint bureau', deadline: future, completed: 'False', todo_list_id: @todo_list.id)
+    expect(@task1).to be_a Task
+    expect(@task1.details).to eq 'Put up shelves'
+    expect(@task1.deadline).to eq '2022-04-09 13:00:00+00'
+    expect(@task1.completed).to eq 'f'
+    expect(@task1.todo_list_id).to eq @todo_list.id
+  end
+end
+
+  describe "#all" do
+    it "returns all created tasks" do
+      @user = User.create(username: 'sj19', email: 'sj19@test.com', password: '1234')
+      @todo_list = List.create(name: 'House jobs', category: 'DIY', created: Time.new, archived: 'False', account_id: @user.id)
+      @task1 = Task.create(details: 'Put up shelves', deadline: future, completed: 'False', todo_list_id: @todo_list.id)
+      @task2 = Task.create(details: 'Paint bureau', deadline: future, completed: 'False', todo_list_id: @todo_list.id)
+      all_tasks = Task.all
+      expect(all_tasks.length).to eq 2
+      expect(all_tasks[0].details).to eq 'Put up shelves'
+      expect(all_tasks[1].details).to eq 'Paint bureau'
+    end
+  end
+
+end

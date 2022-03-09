@@ -12,8 +12,27 @@
       <% @my_lists.reverse_each do |list| %>
         <li id="<%= list.id %>">
           <%= list.name %>
-          <%= list.category != '' ? list.category : '' %>
+          <%= list.category != '' ? "Category:  #{list.category}" : '' %>
+          <ul>
+            <% @my_tasks.each do |task| %>
+              <% if task.todo_list_id == list.id %>
+                <li>
+                  <%= task.details %>
+                  <%= task.deadline[0..9] > Date.today.to_s ? "Deadline: #{task.deadline[0..9]}" : '' %>
+                </li>
+              <% end %>
+            <% end %>
+          </uL>
+          <br/>
+          
+          <form id='new_task' action='/new_task' method='post'>
+            <input type='text' name='details' placeholder='Task details' required><br>
+            <input type='text' name='deadline' placeholder='Deadline' onfocus="(this.type='date')"><br>
+            <input type='hidden' name='list_id' value="<%= list.id %>">
+            <input type='submit' value='Add task' id='new_task_button'>
+          </form>
         </li>
+        <br/>
       <% end %>
     </ul>
 

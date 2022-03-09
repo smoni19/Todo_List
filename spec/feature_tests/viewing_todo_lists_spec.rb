@@ -14,7 +14,6 @@ feature "user can create todo list" do
     click_link('New todo list')
     fill_in('List name', with: 'Car')
     click_button('Create todo list')
-    click_link('My todo lists')
     expect(page.status_code).to eq 200
     expect(page).to have_content 'House jobs'
     expect(page).to have_content 'DIY'
