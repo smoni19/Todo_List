@@ -57,5 +57,10 @@ class TodoList < Sinatra::Base
     redirect '/'
   end
 
+  get '/my_todo_lists' do
+    @my_lists = List.all
+    erb :"list/my_lists"
+  end
+
   run! if app_file == $0
 end
