@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require './lib/user'
+require './lib/list'
 
 class TodoList < Sinatra::Base
   enable :sessions
@@ -39,6 +40,20 @@ class TodoList < Sinatra::Base
 
   get '/logout' do
     session.clear
+    redirect '/'
+  end
+
+  get '/new_todo_list' do
+    erb :"list/new"
+  end
+
+  post '/new_todo_list' do
+    List.create(
+      name: params[:name],
+      category: params[:category],
+      created: Time.new,
+      archived: "False",
+      account_id: session[:id])
     redirect '/'
   end
 

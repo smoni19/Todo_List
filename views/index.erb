@@ -5,11 +5,12 @@
   </head>
   <body>
     <% if !@username %>
-      <a href='/signup'>Sign up</a><br/>
-      <a href='/login'>Log in</a>
+      <a href='/login'>Log in</a><br/>
+      <a href='/signup'>Sign up</a>
     <% else %>
       <p>Hello <%= "#{@username}" %></p>
       <a href='/logout'>Logout</a>
+      <a href='/new_todo_list'>New todo list</a>
     <% end %>
   </body>
 </html>
