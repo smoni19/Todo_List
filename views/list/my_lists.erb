@@ -16,13 +16,17 @@
           <ul>
             <% @my_tasks.each do |task| %>
               <% if task.todo_list_id == list.id %>
-                <li>
+                <li id="<%= task.id %>">
                   <%= task.details %>
                   <%= task.deadline[0..9] > Date.today.to_s ? "Deadline: #{task.deadline[0..9]}" : '' %>
+
+                  <form action="/task/<%= task.id %>/<%= task.completed == 't' ? 't' : 'f' %>" method="post">
+                    <input type="checkbox" id="checkbox<%= task.id %>" name="task<%= task.id %>" value="<%= task.completed == 't' ? 't' : 'f' %>" <%='checked' if task.completed == 't' %> onChange="this.form.submit()">
+                  </form>
                 </li>
               <% end %>
             <% end %>
-          </uL>
+          </ul>
           <br/>
           
           <form id='new_task' action='/new_task' method='post'>

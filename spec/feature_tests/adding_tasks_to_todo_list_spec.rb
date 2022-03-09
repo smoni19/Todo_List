@@ -1,5 +1,5 @@
 feature 'user can add tasks to a todo list' do
-  scenario 'users fill out new Task form, providing details and optional deadline and task appears in associated list when Add task button is clicked ' do
+  scenario 'users fill out new Task form, providing details and optional deadline and task appears in associated list when Add task button is clicked' do
     visit('/')
     user = User.create(username: 'sj19', email: 'sj19@test.com', password: '1234')
     click_link('Log in')

@@ -19,8 +19,7 @@ class TodoList < Sinatra::Base
     @user = User.create(
       username: params[:username],
       email: params[:email],
-      password: params[:password]
-    )
+      password: params[:password])
     session[:username] = @user.username
     session[:email] = @user.email
     session[:id] = @user.id
@@ -70,6 +69,11 @@ class TodoList < Sinatra::Base
       deadline: params[:deadline],
       completed: "False",
       todo_list_id: params[:list_id])
+    redirect '/my_todo_lists'
+  end
+
+  post '/task/:id/:status' do
+    Task.set_status(id: params[:id], completed: params[:status])
     redirect '/my_todo_lists'
   end
 
