@@ -26,7 +26,7 @@
         <% @my_lists.reverse_each do |list| %>
           <li class="single_todo_list" id="<%= list.id %>" style="background:<%= list.theme %>">
             <span id="list_name"><%= list.name %></span>
-            <span id="list_category"><%= list.category != '' ? "Category:  #{list.category}" : '' %></span>
+            <span id="list_category"><%= list.category != '' ? "#{list.category}" : '' %></span>
             <ul id="task_list">
               <% @my_tasks.each do |task| %>
                 <% if task.todo_list_id == list.id %>

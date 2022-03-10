@@ -18,9 +18,9 @@ ul {
 
 .single_todo_list {
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid #333333cc;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px -3px #000000;
+  box-shadow: 0px 0px 5px 0px #333333;
 }
 
 #list_name {
@@ -51,6 +51,10 @@ ul {
 
 #task_list {
   margin-left: -40px;
+}
+
+#list_category {
+  font-size: 12px;
 }
 
 input[type=text], input[type=submit] {

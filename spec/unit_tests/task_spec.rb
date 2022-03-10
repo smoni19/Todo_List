@@ -56,12 +56,13 @@ describe Task do
   end
   
   describe "#delete" do
-    it "deletes a peep and removes it from peeps array" do
-      user = create_user("John Smith", "js2000", "js2000@test.com", "1234")
-      peep = create_peep("Hobnobs are the best biscuit", user)
-      Peep.delete(id: peep.id)
-      peeps = Peep.all
-      expect(peeps.length).to eq 0
+    it "deletes a task and removes it from tasks array" do
+      user = User.create(username: 'sj19', email: 'sj19test.com', password: '1234')
+      todo_list = List.create(name: 'House jobs', category: 'DIY', theme: '#00aaff', created: Time.new, archived: 'False', account_id: user.id)
+      task = Task.create(details: 'Put up shelves', deadline: future_time, completed: 'False', todo_list_id: todo_list.id)
+      Task.delete(id: task.id)
+      tasks = Task.all
+      expect(tasks.length).to eq 0
     end
   end
 

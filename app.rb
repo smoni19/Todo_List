@@ -91,7 +91,6 @@ class TodoList < Sinatra::Base
   end
 
   delete "/task/:id/delete" do
-    p params[:id]
     Task.delete(id: params[:id])
     redirect "/"
   end
