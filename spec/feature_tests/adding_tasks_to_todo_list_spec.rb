@@ -1,4 +1,4 @@
-feature 'user can add tasks to a todo list' do
+feature 'user can add tasks to a list' do
   scenario 'users fill out new Task form, providing details and optional deadline and task appears in associated list when Add task button is clicked' do
     visit('/')
     user = User.create(username: 'sj19', email: 'sj19@test.com', password: '1234')
@@ -8,7 +8,7 @@ feature 'user can add tasks to a todo list' do
     click_button('Login')
     fill_in('List name', with: 'House jobs')
     fill_in('Category', with: 'DIY')
-    click_button('Create todo list')
+    click_button('Create list')
     expect(page.status_code).to eq 200
     expect(page).to have_current_path('/')
     expect(page).to have_content 'House jobs'

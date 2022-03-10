@@ -20,7 +20,7 @@
         <input type='text' name='name' placeholder='List name' required>
         <input type='text' name='category' placeholder='Category'>
         <input type='color' name='theme' value='#3366ff'>
-        <input type='submit' value='Create todo list' id='new_list_button'></button>
+        <input type='submit' value='Create list' id='new_list_button'></button>
       </form>
       <ul class="all_todo_lists">
         <% @my_lists.reverse_each do |list| %>
@@ -58,7 +58,10 @@
             </form>
             <form id='delete_list' action="/list/<%= list.id %>/delete" method="post">
               <input id="hidden" type="hidden" name="_method" value="delete">
-              <input type="submit" value="Delete todo list" id="delete_list">
+              <input type="submit" value="Delete list" id="delete_list">
+            </form>
+            <form id='edit_list' action="/list/<%= list.id %>/edit" method="get">
+              <input type="submit" value="Edit list" id="edit_list">
             </form>
           </li>
           <br/>
