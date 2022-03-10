@@ -80,24 +80,34 @@ class TodoList < Sinatra::Base
     redirect '/my_todo_lists'
   end
 
-  get "/task/:id/edit" do
+  get '/task/:id/edit' do
     @task = Task.find(id: params[:id])
     erb :"task/edit"
   end
 
-  patch "/task/:id/update" do
+  patch '/task/:id/update' do
     Task.edit(id: params[:id], details: params[:edited_details], deadline: params[:edited_deadline])
     redirect '/my_todo_lists'
   end
 
-  delete "/task/:id/delete" do
+  delete '/task/:id/delete' do
     Task.delete(id: params[:id])
-    redirect "/"
+    redirect '/'
   end
 
-  delete "/list/:id/delete" do
+  get '/list/:id/edit' do
+    @list = List.find(id: params[:id])
+    erb :"list/edit"
+  end
+
+  patch '/list/:id/update' do
+    List.edit(id: params[:id], name: params[:edited_name], category: params[:edited_category], theme: params[:edited_theme])
+    redirect '/'
+  end
+
+  delete '/list/:id/delete' do
     List.delete(id: params[:id])
-    redirect "/"
+    redirect '/'
   end
 
   run! if app_file == $0

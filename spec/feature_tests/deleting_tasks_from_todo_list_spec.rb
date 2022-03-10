@@ -8,7 +8,7 @@ feature 'user can add task and delete it' do
     click_button('Login')
     fill_in('List name', with: 'House jobs')
     fill_in('Category', with: 'DIY')
-    click_button('Create todo list')
+    click_button('Create list')
     fill_in('Task details', with: 'Put up shelves')
     fill_in('Deadline', with: '2022-04-01')
     click_button('Add task')

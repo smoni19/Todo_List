@@ -47,7 +47,8 @@ ul {
   display: inline-block;
 }
 
-#delete_list {
+#edit_list, #delete_list {
+  margin-left: 3px;
   float: right;
 }
 

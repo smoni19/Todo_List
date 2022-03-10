@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit list</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <h1>Edit list</h1>
+    <form action='/list/<%= @list.id %>/update' method='post'>
+      <input id='hidden' type='hidden' name='_method' value='patch'>
+      <input type='text' name='edited_name' id='edited_name' value="<%= @list.name %>" required>
+      <input type='text' name='edited_category' id='edited_category' value="<%= @list.category %>"><br>
+      <input type='color' name='edited_theme' id='edited_theme' value="<%= @list.theme %>"><br>
+      <input type='submit' value='Update list' id='edit_details'>
+    </form>
+
+    </div>
+  </body>
+</html>
