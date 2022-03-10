@@ -1,5 +1,6 @@
 * {
   font-family: 'Ubuntu', sans-serif;
+  font-size: 14px;
 }
 
 body {
@@ -28,8 +29,10 @@ ul {
   text-shadow: 1px 1px #CCC;
   border: 1px solid black;
   border-radius: 5px;
-  font-weight: 500;
   padding: 5px;
+  margin: 5px 10px 5px;
+  font-weight: 500;
+  font-size: 18px;
 }
 
 .task {
@@ -42,6 +45,10 @@ ul {
 
 #new_list, #new_task, #edit_task, #delete_task, #completed_task {
   display: inline-block;
+}
+
+#delete_list {
+  float: right;
 }
 
 #edit_task, #delete_task, #completed_task {
