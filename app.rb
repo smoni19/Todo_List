@@ -90,6 +90,12 @@ class TodoList < Sinatra::Base
     redirect '/my_todo_lists'
   end
 
+  delete "/task/:id/delete" do
+    p params[:id]
+    Task.delete(id: params[:id])
+    redirect "/"
+  end
+
   run! if app_file == $0
 end
 

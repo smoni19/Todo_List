@@ -1,0 +1,59 @@
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+  background-color: #CCC;
+  font-weight: 300;
+}
+
+ul {
+  list-style: none;
+}
+
+.all_todo_lists {
+  padding: 10px;
+  width: 50%;
+}
+
+.single_todo_list {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px -3px #000000;
+}
+
+#list_name {
+  background: #FFFFFF88;
+  text-shadow: 1px 1px #CCC;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-weight: 500;
+  padding: 5px;
+}
+
+.task {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  background: #FFFFFF88;
+  width: 90%;
+}
+
+#new_list, #new_task, #edit_task, #delete_task, #completed_task {
+  display: inline-block;
+}
+
+#edit_task, #delete_task, #completed_task {
+  margin-left: 3px;
+  float: right;
+}
+
+#task_list {
+  margin-left: -40px;
+}
+
+input[type=text], input[type=submit] {
+  background: #FFFFFF88;
+  border: 1px solid black;
+}

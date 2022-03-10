@@ -26,6 +26,10 @@ class Task
     SET details = $1, deadline = $2
     WHERE id = $3
     RETURNING id, details, deadline, completed, todo_list_id;'
+  @delete_task = '
+    DELETE FROM tasks
+    WHERE id = $1
+    RETURNING id, details, deadline, completed, todo_list_id;'
   @get_info = "SELECT * FROM tasks WHERE id = $1;"
 
   def initialize(id:, details:, deadline:, completed:, todo_list_id:)
@@ -66,6 +70,17 @@ class Task
   def self.edit(id:, details:, deadline:)
     ENV["ENVIRONMENT"] == "test" ? connection = @test_db : connection = @live_db
     result = connection.exec_params(@edit_task, [details, deadline, id])
+    Task.new(
+      id: result[0]['id'],
+      details: result[0]['details'],
+      deadline: result[0]['deadline'],
+      completed: result[0]['completed'],
+      todo_list_id: result[0]['todo_list_id'])
+  end
+  
+  def self.delete(id:)
+    ENV["ENVIRONMENT"] == "test" ? connection = @test_db : connection = @live_db
+    result = connection.exec_params(@delete_task, [id])
     Task.new(
       id: result[0]['id'],
       details: result[0]['details'],

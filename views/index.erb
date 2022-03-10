@@ -2,40 +2,46 @@
 <html>
   <head>
     <title>Home</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap" rel="stylesheet">
   </head>
   <body>
     <% if !@username %>
       <a href='/login'>Log in</a><br/>
       <a href='/signup'>Sign up</a>
     <% else %>
-      <p>Hello <%= "#{@username}" %></p>
-      <a href='/logout'>Logout</a>
-      <form id='new_list' action='/new_todo_list' method='post'>
-        <input type='text' name='name' placeholder='List name' required><br>
-        <input type='text' name='category' placeholder='Category'><br>
-        <input type='color' name='theme' value='#3366ff'><br/>
-        <input type='submit' value='Create todo list' id='new_list_button'></button>
-      </form>
+      <span>Hello <%= "#{@username}" %></span>
+      <a href='/logout'>Logout</a><br>
 
       <h1>My todo lists</h1>
-      <ul id="peep_list">
+      <form id='new_list' action='/new_todo_list' method='post'>
+        <input type='text' name='name' placeholder='List name' required>
+        <input type='text' name='category' placeholder='Category'>
+        <input type='color' name='theme' value='#3366ff'>
+        <input type='submit' value='Create todo list' id='new_list_button'></button>
+      </form>
+      <ul class="all_todo_lists">
         <% @my_lists.reverse_each do |list| %>
-          <li id="<%= list.id %>" style="background:<%= list.theme %>">
-            <%= list.name %>
-            <%= list.theme %>
-            <%= list.category != '' ? "Category:  #{list.category}" : '' %>
-            <ul>
+          <li class="single_todo_list" id="<%= list.id %>" style="background:<%= list.theme %>">
+            <span id="list_name"><%= list.name %></span>
+            <span id="list_category"><%= list.category != '' ? "Category:  #{list.category}" : '' %></span>
+            <ul id="task_list">
               <% @my_tasks.each do |task| %>
                 <% if task.todo_list_id == list.id %>
-                  <li id="<%= task.id %>">
+                  <li class="task" id="<%= task.id %>">
                     <%= task.details %>
                     <%= task.deadline[0..9] > Date.today.to_s ? "Deadline: #{task.deadline[0..9]}" : '' %>
 
-                    <form action="/task/<%= task.id %>/edit" method="get">
+                    <form id='edit_task' action="/task/<%= task.id %>/edit" method="get">
                       <input type="submit" value="Edit Task" id="edit_task">
                     </form>
-
-                    <form action="/task/<%= task.id %>/<%= task.completed == 't' ? 't' : 'f' %>" method="post">
+                    <form id='delete_task' action="/task/<%= task.id %>/delete" method="post">
+                      <input id="hidden" type="hidden" name="_method" value="delete">
+                      <input type="submit" value="Delete Task" id="delete_task">
+                    </form>
+                    <form id='completed_task' action="/task/<%= task.id %>/<%= task.completed == 't' ? 't' : 'f' %>" method="post">
                       <input type="checkbox" id="checkbox<%= task.id %>" name="task<%= task.id %>" value="<%= task.completed == 't' ? 't' : 'f' %>" <%='checked' if task.completed == 't' %> onChange="this.form.submit()">
                     </form>
                   </li>
@@ -45,8 +51,8 @@
             <br/>
             
             <form id='new_task' action='/new_task' method='post'>
-              <input type='text' name='details' placeholder='Task details' required><br>
-              <input type='text' name='deadline' placeholder='Deadline' onfocus="(this.type='date')"><br>
+              <input type='text' name='details' placeholder='Task details' required>
+              <input type='text' name='deadline' placeholder='Deadline' onfocus="(this.type='date')">
               <input type='hidden' name='list_id' value="<%= list.id %>">
               <input type='submit' value='Add task' id='new_task_button'>
             </form>

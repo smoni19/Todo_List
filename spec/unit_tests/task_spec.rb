@@ -54,5 +54,15 @@ describe Task do
       expect(edited_task.deadline).to eq '2022-04-09 13:00:00+00'
     end
   end
+  
+  describe "#delete" do
+    it "deletes a peep and removes it from peeps array" do
+      user = create_user("John Smith", "js2000", "js2000@test.com", "1234")
+      peep = create_peep("Hobnobs are the best biscuit", user)
+      Peep.delete(id: peep.id)
+      peeps = Peep.all
+      expect(peeps.length).to eq 0
+    end
+  end
 
 end
