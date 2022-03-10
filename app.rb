@@ -1,9 +1,10 @@
 require 'sinatra/base'
 require './lib/user'
 require './lib/list'
+require './lib/task'
 
 class TodoList < Sinatra::Base
-  enable :sessions
+  enable :sessions, :method_override
 
   get '/' do
     @username = session[:username]
@@ -18,8 +19,7 @@ class TodoList < Sinatra::Base
     @user = User.create(
       username: params[:username],
       email: params[:email],
-      password: params[:password]
-    )
+      password: params[:password])
     session[:username] = @user.username
     session[:email] = @user.email
     session[:id] = @user.id
@@ -54,12 +54,37 @@ class TodoList < Sinatra::Base
       created: Time.new,
       archived: "False",
       account_id: session[:id])
-    redirect '/'
+    redirect '/my_todo_lists'
   end
 
   get '/my_todo_lists' do
     @my_lists = List.all
+    @my_tasks = Task.all
     erb :"list/my_lists"
+  end
+
+  post '/new_task' do
+    Task.create(
+      details: params[:details],
+      deadline: params[:deadline],
+      completed: "False",
+      todo_list_id: params[:list_id])
+    redirect '/my_todo_lists'
+  end
+
+  post '/task/:id/:status' do
+    Task.set_status(id: params[:id], completed: params[:status])
+    redirect '/my_todo_lists'
+  end
+
+  get "/task/:id/edit" do
+    @task = Task.find(id: params[:id])
+    erb :"task/edit"
+  end
+
+  patch "/task/:id/update" do
+    Task.edit(id: params[:id], details: params[:edited_details], deadline: params[:edited_deadline])
+    redirect '/my_todo_lists'
   end
 
   run! if app_file == $0
