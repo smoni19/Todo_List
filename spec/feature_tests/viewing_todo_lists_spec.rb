@@ -6,15 +6,15 @@ feature "user can create todo list" do
     fill_in('username', with: 'sj19')
     fill_in('password', with: '1234')
     click_button('Login')
-    click_link('New todo list')
     fill_in('List name', with: 'House jobs')
     fill_in('Category', with: 'DIY')
     click_button('Create todo list')
     expect(page.status_code).to eq 200
-    click_link('New todo list')
+    expect(page).to have_current_path('/')
     fill_in('List name', with: 'Car')
     click_button('Create todo list')
     expect(page.status_code).to eq 200
+    expect(page).to have_current_path('/')
     expect(page).to have_content 'House jobs'
     expect(page).to have_content 'DIY'
     expect(page).to have_content 'Car'

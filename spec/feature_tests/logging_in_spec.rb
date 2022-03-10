@@ -8,6 +8,7 @@ feature "user can log in" do
     fill_in('password', with: '1234')
     click_button('Login')
     expect(page.status_code).to eq 200
+    expect(page).to have_current_path('/')
     expect(page).to have_content("Hello sj19")
     expect(page).to have_content("Logout")
   end

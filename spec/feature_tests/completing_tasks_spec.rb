@@ -14,8 +14,8 @@ feature 'user can set task to completed' do
     fill_in('username', with: 'sj19')
     fill_in('password', with: '1234')
     click_button('Login')
+    expect(page).to have_current_path('/')
     expect(page.status_code).to eq 200
-    click_link('My todo lists')
     find("#checkbox#{task.id}").set(true)
     expect(task.completed).to eq 'f'
   end

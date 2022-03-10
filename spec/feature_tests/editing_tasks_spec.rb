@@ -15,7 +15,6 @@ feature 'user can edit a task' do
     fill_in('password', with: '1234')
     click_button('Login')
     expect(page.status_code).to eq 200
-    click_link('My todo lists')
     click_button('Edit Task')
     expect(page.status_code).to eq 200
     fill_in(:edited_details, with: 'Paint bureau')

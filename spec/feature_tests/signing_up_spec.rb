@@ -9,5 +9,6 @@ feature 'user can sign up' do
     click_button('Sign up!')
     expect(page).to have_content('Hello sj19')
     expect(page.status_code).to eq 200
+    expect(page).to have_current_path('/')
   end
 end

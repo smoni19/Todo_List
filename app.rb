@@ -8,6 +8,8 @@ class TodoList < Sinatra::Base
 
   get '/' do
     @username = session[:username]
+    @my_lists = List.all
+    @my_tasks = Task.all
     erb :index
   end
 
@@ -44,7 +46,7 @@ class TodoList < Sinatra::Base
   end
 
   get '/new_todo_list' do
-    erb :"list/new"
+    erb :index
   end
 
   post '/new_todo_list' do
@@ -54,13 +56,13 @@ class TodoList < Sinatra::Base
       created: Time.new,
       archived: "False",
       account_id: session[:id])
-    redirect '/my_todo_lists'
+    redirect '/'
   end
 
   get '/my_todo_lists' do
     @my_lists = List.all
     @my_tasks = Task.all
-    erb :"list/my_lists"
+    redirect '/'
   end
 
   post '/new_task' do
