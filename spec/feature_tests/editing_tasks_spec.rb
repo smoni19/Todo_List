@@ -15,14 +15,17 @@ feature 'user can edit a task' do
     fill_in('password', with: '1234')
     click_button('Login')
     expect(page.status_code).to eq 200
-    click_link('My todo lists')
+    expect(page).to have_current_path('/')
     click_button('Edit Task')
     expect(page.status_code).to eq 200
+    expect(page).to have_current_path("/task/#{task.id}/edit")
     fill_in(:edited_details, with: 'Paint bureau')
     click_button('Update Task')
     expect(page.status_code).to eq 200
+    expect(page).to have_current_path('/')
     expect(page).to have_content('Paint bureau')
     expect(page).to have_content('2022-04-09')
   end
 
 end
+
