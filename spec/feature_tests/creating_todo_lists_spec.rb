@@ -1,5 +1,5 @@
 feature 'user can create todo list' do
-  scenario 'users click My todo lists and are taken to a page where they can see their lists' do
+  scenario 'users can fill in new list form and list appears on index page when creted' do
     visit('/')
     user = User.create(username: 'sj19', email: 'sj19@test.com', password: '1234')
     click_link('Log in')

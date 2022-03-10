@@ -53,6 +53,7 @@ class TodoList < Sinatra::Base
     List.create(
       name: params[:name],
       category: params[:category],
+      theme: params[:theme],
       created: Time.new,
       archived: "False",
       account_id: session[:id])

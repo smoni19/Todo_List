@@ -13,14 +13,16 @@
       <form id='new_list' action='/new_todo_list' method='post'>
         <input type='text' name='name' placeholder='List name' required><br>
         <input type='text' name='category' placeholder='Category'><br>
+        <input type='color' name='theme' value='#3366ff'><br/>
         <input type='submit' value='Create todo list' id='new_list_button'></button>
       </form>
 
       <h1>My todo lists</h1>
       <ul id="peep_list">
         <% @my_lists.reverse_each do |list| %>
-          <li id="<%= list.id %>">
+          <li id="<%= list.id %>" style="background:<%= list.theme %>">
             <%= list.name %>
+            <%= list.theme %>
             <%= list.category != '' ? "Category:  #{list.category}" : '' %>
             <ul>
               <% @my_tasks.each do |task| %>

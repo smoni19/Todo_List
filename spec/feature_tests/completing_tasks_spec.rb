@@ -8,7 +8,7 @@ feature 'user can set task to completed' do
   scenario 'users creates a task and can check the checkbox to signal that it is complete' do
     visit('/')
     user = User.create(username: 'sj19', email: 'sj19@test.com', password: '1234')
-    todo_list = List.create(name: 'House jobs', category: 'DIY', created: Time.new, archived: 'False', account_id: user.id)
+    todo_list = List.create(name: 'House jobs', category: 'DIY', theme: '#00aaff', created: Time.new, archived: 'False', account_id: user.id)
     task = Task.create(details: 'Put up shelves', deadline: future_time, completed: 'False', todo_list_id: todo_list.id)
     click_link('Log in')
     fill_in('username', with: 'sj19')
