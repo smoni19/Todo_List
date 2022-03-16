@@ -22,4 +22,3 @@ feature 'user can add task and delete it' do
     expect(page).not_to have_content 'Deadline: 2022-04-01'
   end
 end
-

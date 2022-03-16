@@ -12,4 +12,3 @@ feature 'user can sign up' do
     expect(page).to have_current_path('/')
   end
 end
-

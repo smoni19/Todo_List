@@ -1,9 +1,13 @@
 require 'sinatra/base'
+require "sinatra/reloader"
 require './lib/user'
 require './lib/list'
 require './lib/task'
 
 class TodoList < Sinatra::Base
+  configure :development do
+    register Sinatra::Reloader
+  end
   enable :sessions, :method_override
 
   get '/' do
@@ -112,4 +116,3 @@ class TodoList < Sinatra::Base
 
   run! if app_file == $0
 end
-

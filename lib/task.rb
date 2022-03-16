@@ -111,5 +111,20 @@ class Task
       completed: result[0]['completed'],
       todo_list_id: result[0]['todo_list_id'])
   end
+
+  def check_for_link(text)
+    link_regex = /\[[^\]]*\]\{[^)]*\}/
+    return text unless link_regex.match?(text)
+    text_minus_link = text.gsub(link_regex, '').chars
+    link_index = text.index(/\[\w/)
+    text_minus_link.insert(link_index, create_link(text[link_regex]))
+    text_minus_link.join()
+  end
+
+  def create_link(link_string)
+    link_value = link_string[/\[(.*?)\]/, 1]
+    link_href = link_string[/\{(.*?)\}/, 1]
+    return "<a href=\"#{link_href}\">#{link_value}</a>"
+  end
   
 end

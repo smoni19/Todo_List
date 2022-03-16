@@ -14,4 +14,3 @@ feature 'user can delete lists' do
     expect(page).not_to have_content 'DIY'
   end
 end
-

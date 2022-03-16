@@ -28,4 +28,3 @@ feature 'user can edit a task' do
   end
 
 end
-

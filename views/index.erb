@@ -9,8 +9,14 @@
   </head>
   <body>
     <% if !@username %>
-      <a href='/login'>Log in</a><br/>
-      <a href='/signup'>Sign up</a>
+      <ul>
+        <li>
+          <a href='/login'>Log in</a><br/>
+        </li>
+        <li>
+          <a href='/signup'>Sign up</a>
+        </li>
+      </ul>
     <% else %>
       <span>Hello <%= "#{@username}" %></span>
       <a href='/logout'>Logout</a><br>
@@ -31,7 +37,7 @@
               <% @my_tasks.each do |task| %>
                 <% if task.todo_list_id == list.id %>
                   <li class="task" id="<%= task.id %>">
-                    <%= task.details %>
+                    <%= task.check_for_link(task.details) %>
                     <%= task.deadline[0..9] > Date.today.to_s ? "Deadline: #{task.deadline[0..9]}" : '' %>
 
                     <form id='delete_task' action="/task/<%= task.id %>/delete" method="post">

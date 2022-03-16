@@ -4,7 +4,7 @@ describe List do
   before do Timecop.freeze(Time.local(2022, 3, 9, 13, 0, 0)) end
   after do Timecop.return end
 
-    describe "#create" do
+  describe "#create" do
     it "creates a new list which takes name, category and id of poster" do
       user = User.create(username: 'sj19', email: 'sj19test.com', password: '1234')
       todo_list = List.create(name: 'House jobs', category: 'DIY', theme: '#00AAFF', created: Time.new, archived: 'False', account_id: user.id)

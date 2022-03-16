@@ -22,4 +22,3 @@ feature 'user can add tasks to a list' do
     expect(page).to have_content 'Deadline: 2022-04-01'
   end
 end
-

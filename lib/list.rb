@@ -99,5 +99,5 @@ class List
       archived: result[0]['archived'],
       account_id: result[0]['account_id'])
   end
-  
+
 end

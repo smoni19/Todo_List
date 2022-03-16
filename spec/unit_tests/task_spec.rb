@@ -65,5 +65,15 @@ describe Task do
       expect(tasks.length).to eq 0
     end
   end
+  
+  describe "#check_for_link" do
+    it "checks text for valid link format and returns a link" do
+      user = User.create(username: 'sj19', email: 'sj19test.com', password: '1234')
+      todo_list = List.create(name: 'House jobs', category: 'DIY', theme: '#00aaff', created: Time.new, archived: 'False', account_id: user.id)
+      task = Task.create(details: 'Look for shelves on [Wickes]{https://www.wickes.co.uk/}', deadline: future_time, completed: 'False', todo_list_id: todo_list.id)
+      Task.delete(id: task.id)
+      expect(task.check_for_link(task.details)).to eq "Look for shelves on <a href=\"https://www.wickes.co.uk/\">Wickes</a>"
+    end
+  end
 
 end

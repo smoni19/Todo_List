@@ -13,4 +13,3 @@ feature "user can log in" do
     expect(page).to have_content("Logout")
   end
 end
-

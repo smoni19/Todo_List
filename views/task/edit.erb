@@ -12,11 +12,18 @@
     <h1>Edit task</h1>
     <form action='/task/<%= @task.id %>/update' method='post'>
       <input id='hidden' type='hidden' name='_method' value='patch'>
-      <input type='text' name='edited_details' id='edited_details' value="<%= @task.details %>" required>
+      <label class="input-sizer" data-value="<%= @task.details %>">
+        <input type='text' oninput="this.parentNode.dataset.value = this.value" size='1' value="<%= @task.details %>" name='edited_details' id='edited_details' required>
+      </label>
       <input type='text' name='edited_deadline' id='edited_deadline' value="<%= @task.deadline %>" onfocus="(this.type='date')"><br>
       <input type='submit' value='Update Task' id='edit_details'>
     </form>
-
+    <script>
+    var input = document.getElementsByTagName('input')[1];
+    input.onfocus = input.onload = function() {
+        this.size = ( this.value.length > 10 ) ? this.value.length : 10;
+    };
+    </script>
     </div>
   </body>
 </html>

@@ -69,3 +69,17 @@ input[type=text], input[type=submit] {
   background: #FFFFFF88;
   border: 1px solid black;
 }
+
+a:link {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.input-sizer {
+  display: inline-grid;
+}
+
+.input-sizer::after {
+  content: attr(data-value) "  ";
+  visibility: hidden;
+}

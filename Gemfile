@@ -15,5 +15,6 @@ group :development, :test do
   gem 'rubocop', '1.20'
   gem 'sinatra'
   gem 'sinatra-contrib'
+  gem 'sinatra-reloader', '~> 1.0'
   gem 'webrick'
 end

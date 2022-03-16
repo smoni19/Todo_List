@@ -20,4 +20,3 @@ feature 'user can set task to completed' do
     expect(task.completed).to eq 'f'
   end
 end
-

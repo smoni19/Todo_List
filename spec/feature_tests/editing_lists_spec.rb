@@ -19,4 +19,3 @@ feature 'user can edit lists' do
     expect(page).to have_content 'DIY'
   end
 end
-
