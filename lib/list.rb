@@ -1,26 +1,9 @@
 require 'pg'
+require_relative 'modules/list_constants'
 
 class List
+  include ListConstants
   attr_reader :id, :name, :category, :theme, :created, :archived, :account_id
-
-  @live_db = PG.connect(dbname: 'todo_list')
-  @test_db = PG.connect(dbname: 'todo_list_test')
-  @new_list = '
-    INSERT INTO todo_lists
-    (name, category, theme, created, archived, account_id)
-    VALUES($1, $2, $3, $4, $5, $6)
-    RETURNING id, name, category, theme, created, archived, account_id;'
-  @edit_list = '
-    UPDATE todo_lists
-    SET name = $2, category = $3, theme = $4
-    WHERE id = $1
-    RETURNING id, name, category, theme, created, archived, account_id;'
-  @delete_list = '
-    DELETE FROM todo_lists
-    WHERE id = $1
-    RETURNING id, name, category, theme, created, archived, account_id;'
-  @get_lists = "SELECT * FROM todo_lists;"
-  @get_info = "SELECT * FROM todo_lists WHERE id = $1;"
 
   def initialize(id:, name:, category:, theme:, created:, archived:, account_id:)
     @id = id
@@ -32,9 +15,7 @@ class List
     @account_id = account_id
   end
 
-  def self.create(name:, category:, theme:, created:, archived:, account_id:)
-    ENV['ENVIRONMENT'] == 'test' ? connection = @test_db : connection = @live_db
-    result = connection.exec_params(@new_list, [name, category, theme, created, archived, account_id])
+  def self.create_new_list(result)
     List.new(
       id: result[0]['id'],
       name: result[0]['name'],
@@ -44,10 +25,16 @@ class List
       archived: result[0]['archived'],
       account_id: result[0]['account_id'])
   end
+
+  def self.create(name:, category:, theme:, created:, archived:, account_id:)
+    ENV['ENVIRONMENT'] == 'test' ? connection = TEST_DB : connection = LIVE_DB
+    result = connection.exec_params(NEW_LIST, [name, category, theme, created, archived, account_id])
+    create_new_list(result)
+  end
   
   def self.all
-    ENV["ENVIRONMENT"] == "test" ? connection = @test_db : connection = @live_db
-    result = connection.exec_params(@get_lists)
+    ENV["ENVIRONMENT"] == "test" ? connection = TEST_DB : connection = LIVE_DB
+    result = connection.exec_params(GET_LISTS)
     result.map do |list|
       List.new(
         id: list["id"],
@@ -62,42 +49,21 @@ class List
 
   def self.find(id:)
     return nil unless id
-    ENV["ENVIRONMENT"] == "test" ? connection = @test_db : connection = @live_db
-    result = connection.exec_params(@get_info, [id])
-    List.new(
-      id: result[0]['id'],
-      name: result[0]['name'],
-      category: result[0]['category'],
-      theme: result[0]['theme'],
-      created: result[0]['created'],
-      archived: result[0]['archived'],
-      account_id: result[0]['account_id'])
+    ENV["ENVIRONMENT"] == "test" ? connection = TEST_DB : connection = LIVE_DB
+    result = connection.exec_params(GET_INFO, [id])
+    create_new_list(result)
   end
 
   def self.edit(id:, name:, category:, theme:)
-    ENV["ENVIRONMENT"] == "test" ? connection = @test_db : connection = @live_db
-    result = connection.exec_params(@edit_list, [id, name, category, theme])
-    List.new(
-      id: result[0]['id'],
-      name: result[0]['name'],
-      category: result[0]['category'],
-      theme: result[0]['theme'],
-      created: result[0]['created'],
-      archived: result[0]['archived'],
-      account_id: result[0]['account_id'])
+    ENV["ENVIRONMENT"] == "test" ? connection = TEST_DB : connection = LIVE_DB
+    result = connection.exec_params(EDIT_LIST, [id, name, category, theme])
+    create_new_list(result)
   end
 
   def self.delete(id:)
-    ENV["ENVIRONMENT"] == "test" ? connection = @test_db : connection = @live_db
-    result = connection.exec_params(@delete_list, [id])
-    List.new(
-      id: result[0]['id'],
-      name: result[0]['name'],
-      category: result[0]['category'],
-      theme: result[0]['theme'],
-      created: result[0]['created'],
-      archived: result[0]['archived'],
-      account_id: result[0]['account_id'])
+    ENV["ENVIRONMENT"] == "test" ? connection = TEST_DB : connection = LIVE_DB
+    result = connection.exec_params(DELETE_LIST, [id])
+    create_new_list(result)
   end
 
 end
