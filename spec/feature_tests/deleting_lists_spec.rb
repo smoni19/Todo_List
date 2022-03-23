@@ -9,7 +9,9 @@ feature 'user can delete lists' do
     fill_in('List name', with: 'House jobs')
     fill_in('Category', with: 'DIY')
     click_button('Create list')
-    click_button('Delete list')
+    within "form#delete_list" do
+      click_button('Delete')
+    end
     expect(page).not_to have_content 'House jobs'
     expect(page).not_to have_content 'DIY'
   end

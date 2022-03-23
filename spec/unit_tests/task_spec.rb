@@ -6,7 +6,7 @@ describe Task do
   future_time = Time.local(2022, 4, 9, 13, 0, 0)
 
   describe '#create' do
-    it 'creates a new list which takes name, category and id of poster' do
+    it 'creates a new task which takes name, category and id of poster' do
       user = User.create(username: 'sj19', email: 'sj19test.com', password: '1234')
       todo_list = List.create(name: 'House jobs', category: 'DIY', theme: '#00aaff', created: Time.new, archived: 'False', account_id: user.id)
       task1 = Task.create(details: 'Put up shelves', deadline: future_time, completed: 'False', todo_list_id: todo_list.id)

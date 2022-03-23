@@ -15,7 +15,7 @@ feature 'user can add tasks to a list' do
     expect(page).to have_content 'DIY'
     fill_in('Task details', with: 'Put up shelves')
     fill_in('Deadline', with: '2022-04-01')
-    click_button('Add task')
+    click_button('Add')
     expect(page.status_code).to eq 200
     expect(page).to have_current_path('/')
     expect(page).to have_content 'Put up shelves'
