@@ -4,13 +4,13 @@ require_relative './reset_test_database'
 
 ENV['ENVIRONMENT'] = 'test'
 
-require File.join(File.dirname(__FILE__), '..', 'app.rb')
+require File.join(File.dirname(__FILE__), '..', 'app/controllers/app.rb')
 
 require 'capybara'
 require 'capybara/rspec'
 require 'rspec'
 
-Capybara.app = TodoList
+Capybara.app = MainController::TodoList
 
 RSpec.configure do |config|
   config.before(:each) do

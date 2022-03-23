@@ -1,5 +1,5 @@
-require_relative './app'
+require_relative './app/controllers/app'
 
 use Rack::MethodOverride
 
-run TodoList
+run MainController::TodoList
