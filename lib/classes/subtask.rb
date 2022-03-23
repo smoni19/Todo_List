@@ -1,6 +1,6 @@
 require 'pg'
-require_relative 'modules/connection_constants'
-require_relative 'modules/subtask_constants'
+require_relative '../modules/connection_constants'
+require_relative '../modules/subtask_constants'
 
 
 class Subtask

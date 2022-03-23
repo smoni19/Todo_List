@@ -1,6 +1,6 @@
 require 'pg'
-require_relative 'modules/connection_constants'
-require_relative 'modules/task_constants'
+require_relative '../modules/connection_constants'
+require_relative '../modules/task_constants'
 
 class Task
   include ConnectionConstants, TaskConstants

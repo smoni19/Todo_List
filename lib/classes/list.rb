@@ -1,6 +1,6 @@
 require 'pg'
-require_relative 'modules/connection_constants'
-require_relative 'modules/list_constants'
+require_relative '../modules/connection_constants'
+require_relative '../modules/list_constants'
 
 class List
   include ConnectionConstants, ListConstants

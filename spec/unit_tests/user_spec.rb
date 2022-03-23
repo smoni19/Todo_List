@@ -1,4 +1,4 @@
-require 'user'
+require_relative '../../lib/classes/user'
 
 describe User do
   describe '#create' do
