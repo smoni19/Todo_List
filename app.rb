@@ -6,6 +6,7 @@ require './lib/task'
 require './lib/subtask'
 require './lib/modules/list_constants'
 require './lib/modules/task_constants'
+require './lib/modules/subtask_constants'
 
 class TodoList < Sinatra::Base
   configure :development do
