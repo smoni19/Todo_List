@@ -1,8 +1,9 @@
 require 'pg'
+require_relative 'modules/connection_constants'
 require_relative 'modules/list_constants'
 
 class List
-  include ListConstants
+  include ConnectionConstants, ListConstants
   attr_reader :id, :name, :category, :theme, :created, :archived, :account_id
 
   def initialize(id:, name:, category:, theme:, created:, archived:, account_id:)
@@ -31,13 +32,11 @@ class List
   end
 
   def self.create(name:, category:, theme:, created:, archived:, account_id:)
-    result = check_connection.exec_params(NEW_LIST, [name, category, theme, created, archived, account_id])
-    create_new_list(result)
+    create_new_list(check_connection.exec_params(NEW_LIST, [name, category, theme, created, archived, account_id]))
   end
   
   def self.all
-    result = check_connection.exec_params(GET_LISTS)
-    result.map do |list|
+    check_connection.exec_params(GET_LISTS).map do |list|
       List.new(
         id: list["id"],
         name: list["name"],
@@ -51,18 +50,15 @@ class List
 
   def self.find(id:)
     return nil unless id
-    result = check_connection.exec_params(GET_INFO, [id])
-    create_new_list(result)
+    create_new_list(check_connection.exec_params(GET_INFO, [id]))
   end
 
   def self.edit(id:, name:, category:, theme:)
-    result = check_connection.exec_params(EDIT_LIST, [id, name, category, theme])
-    create_new_list(result)
+    create_new_list(check_connection.exec_params(EDIT_LIST, [id, name, category, theme]))
   end
 
   def self.delete(id:)
-    result = check_connection.exec_params(DELETE_LIST, [id])
-    create_new_list(result)
+    create_new_list(check_connection.exec_params(DELETE_LIST, [id]))
   end
 
 end

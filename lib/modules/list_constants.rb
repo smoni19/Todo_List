@@ -1,6 +1,4 @@
 module ListConstants
-  LIVE_DB = PG.connect(dbname: 'todo_list')
-  TEST_DB = PG.connect(dbname: 'todo_list_test')
   NEW_LIST = '
     INSERT INTO todo_lists
     (name, category, theme, created, archived, account_id)

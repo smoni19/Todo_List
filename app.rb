@@ -2,9 +2,10 @@ require 'sinatra/base'
 require "sinatra/reloader"
 require './lib/user'
 require './lib/list'
-require './lib/modules/list_constants'
 require './lib/task'
 require './lib/subtask'
+require './lib/modules/list_constants'
+require './lib/modules/task_constants'
 
 class TodoList < Sinatra::Base
   configure :development do
