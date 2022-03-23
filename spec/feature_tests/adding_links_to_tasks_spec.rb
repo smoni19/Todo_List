@@ -10,7 +10,7 @@ feature 'user can add links to a todo list' do
     fill_in('Category', with: '')
     click_button('Create list')
     fill_in('Task details', with: '[Visit google]{www.google.com}')
-    click_button('Add task')
+    click_button('Add')
     expect(page.status_code).to eq 200
     expect(page).to have_current_path('/')
     expect(page).to have_content 'Visit google'

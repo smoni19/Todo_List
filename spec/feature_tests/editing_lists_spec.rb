@@ -8,7 +8,9 @@ feature 'user can edit lists' do
     fill_in('password', with: '1234')
     click_button('Login')
     expect(page).to have_content 'House jobs'
-    click_button('Edit list')
+    within "form#edit_list" do
+      click_button('Edit')
+    end
     expect(page.status_code).to eq 200
     expect(page).to have_current_path("/list/#{todo_list.id}/edit")
     fill_in('edited_name', with: 'Garden jobs')

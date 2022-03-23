@@ -11,11 +11,13 @@ feature 'user can add task and delete it' do
     click_button('Create list')
     fill_in('Task details', with: 'Put up shelves')
     fill_in('Deadline', with: '2022-04-01')
-    click_button('Add task')
+    click_button('Add')
     expect(page).to have_current_path('/')
     expect(page).to have_content 'Put up shelves'
     expect(page).to have_content 'Deadline: 2022-04-01'
-    click_button('Delete Task')
+    within "form#delete_list" do
+      click_button('Delete')
+    end
     expect(page.status_code).to eq 200
     expect(page).to have_current_path('/')
     expect(page).not_to have_content 'Put up shelves'
