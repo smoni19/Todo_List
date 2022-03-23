@@ -26,15 +26,17 @@ class List
       account_id: result[0]['account_id'])
   end
 
+  def self.check_connection
+    ENV['ENVIRONMENT'] == 'test' ? TEST_DB : LIVE_DB
+  end
+
   def self.create(name:, category:, theme:, created:, archived:, account_id:)
-    ENV['ENVIRONMENT'] == 'test' ? connection = TEST_DB : connection = LIVE_DB
-    result = connection.exec_params(NEW_LIST, [name, category, theme, created, archived, account_id])
+    result = check_connection.exec_params(NEW_LIST, [name, category, theme, created, archived, account_id])
     create_new_list(result)
   end
   
   def self.all
-    ENV["ENVIRONMENT"] == "test" ? connection = TEST_DB : connection = LIVE_DB
-    result = connection.exec_params(GET_LISTS)
+    result = check_connection.exec_params(GET_LISTS)
     result.map do |list|
       List.new(
         id: list["id"],
@@ -49,20 +51,17 @@ class List
 
   def self.find(id:)
     return nil unless id
-    ENV["ENVIRONMENT"] == "test" ? connection = TEST_DB : connection = LIVE_DB
-    result = connection.exec_params(GET_INFO, [id])
+    result = check_connection.exec_params(GET_INFO, [id])
     create_new_list(result)
   end
 
   def self.edit(id:, name:, category:, theme:)
-    ENV["ENVIRONMENT"] == "test" ? connection = TEST_DB : connection = LIVE_DB
-    result = connection.exec_params(EDIT_LIST, [id, name, category, theme])
+    result = check_connection.exec_params(EDIT_LIST, [id, name, category, theme])
     create_new_list(result)
   end
 
   def self.delete(id:)
-    ENV["ENVIRONMENT"] == "test" ? connection = TEST_DB : connection = LIVE_DB
-    result = connection.exec_params(DELETE_LIST, [id])
+    result = check_connection.exec_params(DELETE_LIST, [id])
     create_new_list(result)
   end
 
