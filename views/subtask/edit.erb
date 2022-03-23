@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Edit subtask</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;500&display=swap" rel="stylesheet">
+  </head>
+  <body>
+
+    <h1>Edit subtask</h1>
+    <form action='/subtask/<%= @subtask.id %>/update' method='post'>
+      <input id='hidden' type='hidden' name='_method' value='patch'>
+      <label class="input-sizer" data-value="<%= @subtask.details %>">
+        <input type='text' oninput="this.parentNode.dataset.value = this.value" size='1' value="<%= @subtask.details %>" name='edited_details' id='edited_details' required>
+      </label>
+      <input type='text' name='edited_deadline' id='edited_deadline' value="<%= @subtask.deadline %>" onfocus="(this.type='date')"><br>
+      <input type='submit' value='Update Subtask' id='edit_details'>
+    </form>
+    <script>
+    var input = document.getElementsByTagName('input')[1];
+    input.onfocus = input.onload = function() {
+        this.size = ( this.value.length > 10 ) ? this.value.length : 10;
+    };
+    </script>
+    </div>
+  </body>
+</html>

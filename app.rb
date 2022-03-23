@@ -3,6 +3,7 @@ require "sinatra/reloader"
 require './lib/user'
 require './lib/list'
 require './lib/task'
+require './lib/subtask'
 
 class TodoList < Sinatra::Base
   configure :development do
@@ -14,6 +15,7 @@ class TodoList < Sinatra::Base
     @username = session[:username]
     @my_lists = List.all
     @my_tasks = Task.all
+    @my_subtasks = Subtask.all
     erb :index
   end
 
@@ -98,6 +100,35 @@ class TodoList < Sinatra::Base
     Task.delete(id: params[:id])
     redirect '/'
   end
+
+  post '/new_subtask' do
+    Subtask.create(
+      details: params[:details],
+      deadline: params[:deadline],
+      completed: "False",
+      task_id: params[:task_id])
+    redirect '/my_todo_lists'
+  end
+  
+  post '/subtask/:id/:status' do
+    Subtask.set_status(id: params[:id], completed: params[:status])
+    redirect '/my_todo_lists'
+  end
+  
+  get '/subtask/:id/edit' do
+    @subtask = Subtask.find(id: params[:id])
+    erb :"subtask/edit"
+  end
+  
+  patch '/subtask/:id/update' do
+    Subtask.edit(id: params[:id], details: params[:edited_details], deadline: params[:edited_deadline])
+    redirect '/my_todo_lists'
+  end
+  
+  delete '/subtask/:id/delete' do
+    Subtask.delete(id: params[:id])
+    redirect '/'
+  end  
 
   get '/list/:id/edit' do
     @list = List.find(id: params[:id])

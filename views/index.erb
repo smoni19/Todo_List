@@ -30,27 +30,54 @@
       </form>
       <ul class="all_todo_lists">
         <% @my_lists.reverse_each do |list| %>
-          <li class="single_todo_list" id="<%= list.id %>" style="background:<%= list.theme %>">
+          <li class="single_todo_list" id="list_<%= list.id %>" style="background:<%= list.theme %>;">
             <span id="list_name"><%= list.name %></span>
             <span id="list_category"><%= list.category != '' ? "#{list.category}" : '' %></span>
             <ul id="task_list">
               <% @my_tasks.each do |task| %>
                 <% if task.todo_list_id == list.id %>
-                  <li class="task" id="<%= task.id %>">
+                  <li class="task" id="task_<%= task.id %>">
                     <%= task.check_for_link(task.details) %>
                     <%= task.deadline[0..9] > Date.today.to_s ? "Deadline: #{task.deadline[0..9]}" : '' %>
 
                     <form id='delete_task' action="/task/<%= task.id %>/delete" method="post">
                       <input id="hidden" type="hidden" name="_method" value="delete">
-                      <input type="submit" value="Delete Task" id="delete_task">
+                      <input type="submit" value="Delete" id="delete_task">
                     </form>
                     <form id='edit_task' action="/task/<%= task.id %>/edit" method="get">
-                      <input type="submit" value="Edit Task" id="edit_task">
+                      <input type="submit" value="Edit" id="edit_task">
                     </form>
                     <form id='completed_task' action="/task/<%= task.id %>/<%= task.completed == 't' ? 't' : 'f' %>" method="post">
                       <input type="checkbox" id="checkbox<%= task.id %>" name="task<%= task.id %>" value="<%= task.completed == 't' ? 't' : 'f' %>" <%='checked' if task.completed == 't' %> onChange="this.form.submit()">
                     </form>
-                  </li>
+
+                    <ul id="subtask_list">
+                      <% @my_subtasks.each do |subtask| %>
+                        <% if subtask.task_id == task.id %>
+                          <li class="subtask" id="subtask_<%= subtask.id %>">
+                            <%= subtask.check_for_link(subtask.details) %>
+                            <%= subtask.deadline[0..9] > Date.today.to_s ? "Deadline: #{subtask.deadline[0..9]}" : '' %>
+                            <form id='delete_subtask' action="/subtask/<%= subtask.id %>/delete" method="post">
+                              <input id="hidden" type="hidden" name="_method" value="delete">
+                              <input type="submit" value="Delete" id="delete_subtask">
+                            </form>
+                            <form id='edit_subtask' action="/subtask/<%= subtask.id %>/edit" method="get">
+                              <input type="submit" value="Edit" id="edit_subtask">
+                            </form>
+                            <form id='completed_subtask' action="/subtask/<%= subtask.id %>/<%= subtask.completed == 't' ? 't' : 'f' %>" method="post">
+                              <input type="checkbox" id="checkbox<%= subtask.id %>" name="subtask<%= subtask.id %>" value="<%= subtask.completed == 't' ? 't' : 'f' %>" <%='checked' if subtask.completed == 't' %> onChange="this.form.submit()">
+                            </form>
+                          </li>
+                        <% end %>
+                      <% end %>
+                    <form id='new_subtask' action='/new_subtask' method='post'>
+                      <input type='text' name='details' placeholder='Subtask details' required>
+                      <input type='text' name='deadline' placeholder='Deadline' onfocus="(this.type='date')">
+                      <input type='hidden' name='task_id' value="<%= task.id %>">
+                      <input type='submit' value='Add' id='new_subtask_button'>
+                    </form>
+                    </li>
+                  </ul>
                 <% end %>
               <% end %>
             </ul>
@@ -60,14 +87,14 @@
               <input type='text' name='details' placeholder='Task details' required>
               <input type='text' name='deadline' placeholder='Deadline' onfocus="(this.type='date')">
               <input type='hidden' name='list_id' value="<%= list.id %>">
-              <input type='submit' value='Add task' id='new_task_button'>
+              <input type='submit' value='Add' id='new_task_button'>
             </form>
             <form id='delete_list' action="/list/<%= list.id %>/delete" method="post">
               <input id="hidden" type="hidden" name="_method" value="delete">
-              <input type="submit" value="Delete list" id="delete_list">
+              <input type="submit" value="Delete" id="delete_list">
             </form>
             <form id='edit_list' action="/list/<%= list.id %>/edit" method="get">
-              <input type="submit" value="Edit list" id="edit_list">
+              <input type="submit" value="Edit" id="edit_list">
             </form>
           </li>
           <br/>

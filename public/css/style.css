@@ -19,15 +19,14 @@ ul {
 
 .single_todo_list {
   padding: 10px;
-  border: 1px solid #333333cc;
+  border: 3px solid #66666666;
   border-radius: 5px;
-  box-shadow: 0px 0px 5px 0px #333333;
 }
 
 #list_name {
-  background: #FFFFFF88;
+  background: #FFFFFF55;
   text-shadow: 1px 1px #CCC;
-  border: 1px solid black;
+  border: 3px solid #66666666;
   border-radius: 5px;
   padding: 5px;
   margin: 5px 10px 5px;
@@ -35,15 +34,22 @@ ul {
   font-size: 18px;
 }
 
-.task {
+.task, .subtask {
   margin: 10px;
   padding: 10px;
-  border: 1px solid black;
-  background: #FFFFFF88;
+  border: 3px solid #66666666;
+  background: #FFFFFF55;
   width: 90%;
+  border-radius: 5px;
 }
 
-#new_list, #new_task, #edit_task, #delete_task, #completed_task {
+.subtask {
+  margin-left: -30px;
+  width: 100%;
+}
+
+#new_list, #new_task, #edit_task, #delete_task, #completed_task, #new_subtask, #edit_subtask, #delete_subtask, #completed_subtask {
+  font-size: 12px;
   display: inline-block;
 }
 
@@ -52,13 +58,25 @@ ul {
   float: right;
 }
 
-#edit_task, #delete_task, #completed_task {
+#edit_task, #delete_task, #completed_task, #edit_subtask, #delete_subtask, #completed_subtask {
   margin-left: 3px;
   float: right;
 }
 
 #task_list {
-  margin-left: -40px;
+  padding: 0;
+  margin: 0;
+  width: 103%;
+}
+
+#subtask_list {
+}
+
+#new_subtask {
+  position: relative;
+  left: -30px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 #list_category {
@@ -66,8 +84,12 @@ ul {
 }
 
 input[type=text], input[type=submit] {
-  background: #FFFFFF88;
-  border: 1px solid black;
+  background: #FFFFFF55;
+  border: 3px solid #66666666;
+}
+
+input[type=checkbox] {
+  border: 2px solid red;
 }
 
 a:link {
